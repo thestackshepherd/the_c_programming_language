@@ -8,6 +8,7 @@ from pathlib import Path
 
 
 def main() -> int:
+
     if len(sys.argv) != 2:
         print(f"usage: python {Path(sys.argv[0]).name} <file.c>", file=sys.stderr)
         return 2
@@ -21,8 +22,16 @@ def main() -> int:
     if build.returncode != 0:
         return build.returncode
 
-    return subprocess.run([str(Path("a.out").resolve())], check=False).returncode
+    try:
+        return subprocess.run([str(Path("a.out").resolve())], check=False).returncode
+    except KeyboardInterrupt:
+        print("\nProgram terminated.")
+        return 130
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt:
+        print("\nTerminated.")
+        sys.exit(130)
