@@ -1,8 +1,14 @@
 #include <stdio.h>
+/* copy input to output, 1st version */
 int main()
 {
-    printf("enter a character: ");
-    char c = getchar();
-    printf("char entered: %c\n", c);
+    int c;
+
+    c = getchar();
+    while ( c != EOF ) {
+        putchar(c);
+        c = getchar();
+    }
+
     return 0;
 }
